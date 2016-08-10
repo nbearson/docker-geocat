@@ -42,7 +42,8 @@ RUN cd /build/wgrib && make && \
 RUN cd /build/wgrib2 && export USE_AEC=0 && make && \
     mkdir /wgrib2 && cp wgrib2/wgrib2 /wgrib2/wgrib2
 
-## adds grib2hdf
+## TODO: adds grib2hdf
+
 ## adds PPVL for MODIS:
 # https://groups.ssec.wisc.edu/groups/goes-r/algorithm-working-group/geocat-and-framework/geocat-user-documentation/running-geocat-on-modis-data
 RUN apt-get install -y csh
