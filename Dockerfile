@@ -1,6 +1,15 @@
 # This image adds all the pieces geocat should need
 # TODO: look into how to include scripts for grabbing and setting up the static ancillary data
 
+# for a step-by-step on installing geocat, see:
+# getting libs: 
+# https://groups.ssec.wisc.edu/groups/goes-r/algorithm-working-group/geocat-and-framework/geocat-user-documentation/building-geocat-cots-libraries
+# trunk install:
+# https://groups.ssec.wisc.edu/groups/goes-r/algorithm-working-group/geocat-and-framework/geocat-user-documentation/installing-geocat/?searchterm=geocat
+# dev_lib_sat install:
+# https://groups.ssec.wisc.edu/groups/goes-r/algorithm-working-group/geocat-and-framework/geocat-user-documentation/installing-and-testing-the-experimental-lib_sat-version-of-geocat
+
+# docker-science-stack handles all the lib dependencies for us
 FROM nbearson/docker-science-stack
 
 ENV WGRIB_VERSION 1.8.1.2c
