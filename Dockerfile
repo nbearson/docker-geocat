@@ -72,6 +72,16 @@ RUN easy_install -f http://larch.ssec.wisc.edu/cgi-bin/repos.cgi uwglance
 ## safe default that also makes SVN stop complaining when we run regression tests
 RUN mkdir -p /root/.subversion && echo "store-plaintext-passwords = no" >> /root/.subversion/servers
 
+# set all the required env variables for the user
+RUN echo "export GEOCAT_INCLUDES=/usr/include" >> ~/.bashrc && \
+    echo "export GEOCAT_LIBRARIES=/usr/lib" >> ~/.bashrc && \
+    echo "export HDF4=/usr" >> ~/.bashrc && \
+    echo "export HDF5=/usr/lib/x86_64-linux-gnu" >> ~/.bashrc && \
+    echo "export NETCDF=/usr" >> ~/.bashrc && \
+    echo "export PPVL=/ppvl" >> ~/.bashrc && \
+    echo "export CRTM=/crtm" >> ~/.bashrc && \
+    echo "export PROFILE_UTILITY=/profile_utility" >> ~/.bashrc
+
 # remove all the build cruft
 #RUN rm -rf /build
 #RUN rm -rf /usr/man
