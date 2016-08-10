@@ -9,7 +9,8 @@ ENV CRTM_VERSION 2.0.6
 
 # unzip needed to unzip packages inside wgrib
 # cvs needed to grab grib2hdf
-RUN apt-get update && apt-get install -y unzip cvs
+# svn for checkout when running regression tests
+RUN apt-get update && apt-get install -y unzip cvs subversion
 
 RUN mkdir /build
 
@@ -53,7 +54,7 @@ RUN easy_install -f http://larch.ssec.wisc.edu/cgi-bin/repos.cgi uwglance
 
 
 ## safe default that also makes SVN stop complaining when we run regression tests
-#RUN echo "store-plaintext-passwords = no" >> /root/.subversion/servers
+RUN mkdir -p /root/.subversion && echo "store-plaintext-passwords = no" >> /root/.subversion/servers
 
 # remove all the build cruft
 #RUN rm -rf /build
