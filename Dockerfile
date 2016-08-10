@@ -14,6 +14,7 @@ FROM nbearson/docker-science-stack
 
 ENV WGRIB_VERSION 1.8.1.2c
 ENV WGRIB2_VERSION 2.0.5
+ENV PPVL_VERSION 1.2.6
 ENV CRTM_VERSION 2.0.6
 
 # unzip needed to unzip packages inside wgrib
@@ -30,6 +31,8 @@ RUN cd /build && curl -O ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib2/wgrib2.tgz.v$
 #RUN cd /build && cvs co -d cvs.ssec.wisc.edu:/cvsroot https://cvs.ssec.wisc.edu/cgi-bin/cvsweb.cgi/grib2hdf
 RUN cd /build && curl -O ftp://ftp.emc.ncep.noaa.gov/jcsda/CRTM/utility/Profile_Utility.tar.gz && tar xzf Profile_Utility.tar.gz
 RUN cd /build && curl -O ftp://ftp.ssec.wisc.edu/pub/geocat/crtm/REL-${CRTM_VERSION}.CRTM.tar.gz && tar xzf REL-${CRTM_VERSION}.CRTM.tar.gz
+# FIXME: curl -O doesn't work for the below???
+RUN cd /build && wget ftp://pirlftp.lpl.arizona.edu/pub/PPVL/PPVL-${PPVL_VERSION}.tar.gz && tar xzf PPVL-${PPVL_VERSION}.tar.gz
 
 ## adds wgrib1 support for the grib2hdf
 RUN cd /build/wgrib && make && \
@@ -40,6 +43,10 @@ RUN cd /build/wgrib2 && export USE_AEC=0 && make && \
     mkdir /wgrib2 && cp wgrib2/wgrib2 /wgrib2/wgrib2
 
 ## adds grib2hdf
+## adds PPVL for MODIS:
+# https://groups.ssec.wisc.edu/groups/goes-r/algorithm-working-group/geocat-and-framework/geocat-user-documentation/running-geocat-on-modis-data
+RUN apt-get install -y csh
+RUN cd /build/PPVL-${PPVL_VERSION} && mkdir -p /ppvl/lib /ppvl/include && INSTALL_DIR=/ppvl make install
 
 ## adds Profile_Utility
 RUN cd /build/Profile_Utility && make && make install && \
