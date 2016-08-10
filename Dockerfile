@@ -83,6 +83,6 @@ RUN echo "export GEOCAT_INCLUDES=/usr/include" >> ~/.bashrc && \
     echo "export PROFILE_UTILITY=/profile_utility" >> ~/.bashrc
 
 # remove all the build cruft
-#RUN rm -rf /build
-#RUN rm -rf /usr/man
+RUN rm -rf /build
+RUN rm -rf /usr/man
 
