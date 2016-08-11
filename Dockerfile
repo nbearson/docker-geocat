@@ -65,6 +65,11 @@ RUN cd /build/REL-${CRTM_VERSION} && . configure/gfortran.setup && make && make 
 	cp fix/SpcCoeff/Little_Endian/sndr_g14.SpcCoeff.bin /crtm/coeffs/sndr_g14.SpcCoeff.bin && \
 	cp fix/TauCoeff/ODAS/Little_Endian/sndr_g14.TauCoeff.bin /crtm/coeffs/sndr_g14.TauCoeff.bin
 
+# add libHimawari
+# not large, not sure what's important, build it outside of /build for now
+RUN cd / && git clone https://gitlab.ssec.wisc.edu/rayg/himawari.git himawari && \
+    cd himawari/src && (unset CXX CC LD F9X; make)
+
 ## add uwglance for regression testing
 RUN apt-get install -y python-setuptools python-numpy python-scipy python-matplotlib python-mpltoolkits.basemap
 RUN easy_install -f http://larch.ssec.wisc.edu/cgi-bin/repos.cgi uwglance
@@ -83,7 +88,9 @@ RUN echo "export GEOCAT_INCLUDES=/usr/include" >> ~/.bashrc && \
     echo "export NETCDF=/usr" >> ~/.bashrc && \
     echo "export PPVL=/ppvl" >> ~/.bashrc && \
     echo "export CRTM=/crtm" >> ~/.bashrc && \
-    echo "export PROFILE_UTILITY=/profile_utility" >> ~/.bashrc
+    echo "export PROFILE_UTILITY=/profile_utility" >> ~/.bashrc && \
+    echo "export HIMAWARI_UTILS=/himawari" >> ~/.bashrc
+
 
 # remove all the build cruft
 RUN rm -rf /build
