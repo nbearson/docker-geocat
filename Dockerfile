@@ -77,7 +77,7 @@ RUN easy_install -f http://larch.ssec.wisc.edu/cgi-bin/repos.cgi uwglance
 
 ## safe default that also makes SVN stop complaining when we run regression tests
 RUN mkdir -p /root/.subversion && \
-    echo "[global]" >> && /root/.subversion/servers \
+    echo "[global]" >> /root/.subversion/servers && \
     echo "store-plaintext-passwords = no" >> /root/.subversion/servers
 
 # set all the required env variables for the user
