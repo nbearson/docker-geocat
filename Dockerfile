@@ -79,7 +79,7 @@ RUN mkdir -p /root/.subversion && \
 RUN echo "export GEOCAT_INCLUDES=/usr/include" >> ~/.bashrc && \
     echo "export GEOCAT_LIBRARIES=/usr/lib" >> ~/.bashrc && \
     echo "export HDF4=/usr" >> ~/.bashrc && \
-    echo "export HDF5=/usr/lib/x86_64-linux-gnu" >> ~/.bashrc && \
+    echo "export HDF5=/usr" >> ~/.bashrc && \
     echo "export NETCDF=/usr" >> ~/.bashrc && \
     echo "export PPVL=/ppvl" >> ~/.bashrc && \
     echo "export CRTM=/crtm" >> ~/.bashrc && \
