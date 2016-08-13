@@ -80,16 +80,15 @@ RUN mkdir -p /root/.subversion && \
     echo "[global]" >> /root/.subversion/servers && \
     echo "store-plaintext-passwords = no" >> /root/.subversion/servers
 
+
 # set all the required env variables for the user
-RUN echo "export GEOCAT_INCLUDES=/usr/include" >> ~/.bashrc && \
-    echo "export GEOCAT_LIBRARIES=/usr/lib" >> ~/.bashrc && \
-    echo "export HDF4=/usr" >> ~/.bashrc && \
-    echo "export HDF5=/usr" >> ~/.bashrc && \
-    echo "export NETCDF=/usr" >> ~/.bashrc && \
+RUN echo "export GEOCAT_INCLUDES=${HDF4}/include" >> ~/.bashrc && \
+    echo "export GEOCAT_LIBRARIES=${HDF4}/lib" >> ~/.bashrc && \
     echo "export PPVL=/ppvl" >> ~/.bashrc && \
     echo "export CRTM=/crtm" >> ~/.bashrc && \
     echo "export PROFILE_UTILITY=/profile_utility" >> ~/.bashrc && \
-    echo "export HIMAWARI_UTILS=/himawari" >> ~/.bashrc
+    echo "export HIMAWARI_UTILS=/himawari" >> ~/.bashrc && \
+    echo "" >> ~/.bashrc
 
 
 # remove all the build cruft
