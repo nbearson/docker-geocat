@@ -22,39 +22,48 @@ ENV CRTM_VERSION 2.0.6
 # svn for checkout when running regression tests
 RUN apt-get update && apt-get install -y unzip cvs subversion
 
-RUN mkdir /build
-
-# do all downloads up front so they get cached until something changes
-RUN mkdir -p /build/wgrib && cd /build/wgrib && curl -O ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/wgrib.tar.v${WGRIB_VERSION} && tar xf wgrib.tar.v${WGRIB_VERSION}
-RUN cd /build && curl -O ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib2/wgrib2.tgz.v${WGRIB2_VERSION} && tar xzf wgrib2.tgz.v${WGRIB2_VERSION} && mv grib2 wgrib2
-# FIXME: can we get grib2hdf from cvs without having to log in? doesn't seem like it
-#RUN cd /build && cvs co -d cvs.ssec.wisc.edu:/cvsroot https://cvs.ssec.wisc.edu/cgi-bin/cvsweb.cgi/grib2hdf
-RUN cd /build && curl -O ftp://ftp.emc.ncep.noaa.gov/jcsda/CRTM/utility/Profile_Utility.tar.gz && tar xzf Profile_Utility.tar.gz
-RUN cd /build && curl -O ftp://ftp.ssec.wisc.edu/pub/geocat/crtm/REL-${CRTM_VERSION}.CRTM.tar.gz && tar xzf REL-${CRTM_VERSION}.CRTM.tar.gz
-# FIXME: curl -O doesn't work for the below???
-RUN cd /build && wget ftp://pirlftp.lpl.arizona.edu/pub/PPVL/PPVL-${PPVL_VERSION}.tar.gz && tar xzf PPVL-${PPVL_VERSION}.tar.gz
-
 ## adds wgrib1 support for the grib2hdf
-RUN cd /build/wgrib && make && \
-    mkdir /wgrib && cp wgrib /wgrib/wgrib
+RUN mkdir -p /build/wgrib && cd /build/wgrib && \
+	curl -O ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/wgrib.tar.v${WGRIB_VERSION} && \
+	tar xf wgrib.tar.v${WGRIB_VERSION} && \
+	cd /build/wgrib && make && \
+    mkdir /wgrib && cp wgrib /wgrib/wgrib && \
+    rm -rf /build
 
 ## adds wgrib2 support for the grib2hdf
-RUN cd /build/wgrib2 && export USE_AEC=0 && make && \
-    mkdir /wgrib2 && cp wgrib2/wgrib2 /wgrib2/wgrib2
+RUN mkdir -p /build && cd /build && \
+	curl -O ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib2/wgrib2.tgz.v${WGRIB2_VERSION} && \
+	tar xzf wgrib2.tgz.v${WGRIB2_VERSION} && \
+    cd grib2 && export USE_AEC=0 && make && \
+    mkdir /wgrib2 && cp wgrib2/wgrib2 /wgrib2/wgrib2 && \
+    rm -rf /build
 
 ## TODO: adds grib2hdf
+# FIXME: can we get grib2hdf from cvs without having to log in? doesn't seem like it
+#RUN cd /build && cvs co -d cvs.ssec.wisc.edu:/cvsroot https://cvs.ssec.wisc.edu/cgi-bin/cvsweb.cgi/grib2hdf
 
 ## adds PPVL for MODIS:
 # https://groups.ssec.wisc.edu/groups/goes-r/algorithm-working-group/geocat-and-framework/geocat-user-documentation/running-geocat-on-modis-data
 RUN apt-get install -y csh
-RUN cd /build/PPVL-${PPVL_VERSION} && mkdir -p /ppvl/lib /ppvl/include && INSTALL_DIR=/ppvl make install
+RUN mkdir -p /build && cd /build && \
+	wget ftp://pirlftp.lpl.arizona.edu/pub/PPVL/PPVL-${PPVL_VERSION}.tar.gz && \
+	tar xzf PPVL-${PPVL_VERSION}.tar.gz && \
+	cd /build/PPVL-${PPVL_VERSION} && mkdir -p /ppvl/lib /ppvl/include && INSTALL_DIR=/ppvl make install && \
+    rm -rf /build
 
 ## adds Profile_Utility
-RUN cd /build/Profile_Utility && make && make install && \
-	mkdir /profile_utility && cp -r lib /profile_utility/lib && cp -r include /profile_utility/include
+RUN mkdir -p /build && cd /build && \
+	curl -O ftp://ftp.emc.ncep.noaa.gov/jcsda/CRTM/utility/Profile_Utility.tar.gz && \
+	tar xzf Profile_Utility.tar.gz && \
+	cd /build/Profile_Utility && make && make install && \
+	mkdir /profile_utility && cp -r lib /profile_utility/lib && cp -r include /profile_utility/include && \
+    rm -rf /build
 
 ## adds CRTM
-RUN cd /build/REL-${CRTM_VERSION} && . configure/gfortran.setup && make && make test && make install && \
+RUN mkdir -p /build && cd /build && \
+	curl -O ftp://ftp.ssec.wisc.edu/pub/geocat/crtm/REL-${CRTM_VERSION}.CRTM.tar.gz && \
+	tar xzf REL-${CRTM_VERSION}.CRTM.tar.gz && \
+	cd /build/REL-${CRTM_VERSION} && . configure/gfortran.setup && make && make test && make install && \
 	mkdir /crtm && cp -r lib /crtm/lib && cp -r include /crtm/include && \
 	mkdir /crtm/coeffs && \
 	cp fix/AerosolCoeff/Little_Endian/AerosolCoeff.bin /crtm/coeffs/AerosolCoeff.bin && \
@@ -63,12 +72,14 @@ RUN cd /build/REL-${CRTM_VERSION} && . configure/gfortran.setup && make && make 
 	cp fix/SpcCoeff/Little_Endian/seviri_m09.SpcCoeff.bin /crtm/coeffs/seviri_m09.SpcCoeff.bin && \
 	cp fix/TauCoeff/ODAS/Little_Endian/seviri_m09.TauCoeff.bin /crtm/coeffs/seviri_m09.TauCoeff.bin && \
 	cp fix/SpcCoeff/Little_Endian/sndr_g14.SpcCoeff.bin /crtm/coeffs/sndr_g14.SpcCoeff.bin && \
-	cp fix/TauCoeff/ODAS/Little_Endian/sndr_g14.TauCoeff.bin /crtm/coeffs/sndr_g14.TauCoeff.bin
+	cp fix/TauCoeff/ODAS/Little_Endian/sndr_g14.TauCoeff.bin /crtm/coeffs/sndr_g14.TauCoeff.bin && \
+    rm -rf /build
 
 # add libHimawari
 # not large, not sure what's important, build it outside of /build for now
 RUN cd / && git clone https://gitlab.ssec.wisc.edu/rayg/himawari.git himawari && \
-    cd himawari/src && (unset CXX CC LD F9X; make)
+    cd himawari/src && (unset CXX CC LD F9X; make) && \
+    rm -rf /build
 
 ## add uwglance for regression testing
 RUN apt-get install -y python-setuptools python-numpy python-scipy python-matplotlib python-mpltoolkits.basemap
@@ -90,8 +101,4 @@ RUN echo "export GEOCAT_INCLUDES=${HDF4}/include" >> ~/.bashrc && \
     echo "export HIMAWARI_UTILS=/himawari" >> ~/.bashrc && \
     echo "" >> ~/.bashrc
 
-
-# remove all the build cruft
-RUN rm -rf /build
-RUN rm -rf /usr/man
 
