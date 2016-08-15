@@ -24,16 +24,16 @@ RUN apt-get update && apt-get install -y unzip cvs subversion
 
 ## adds wgrib1 support for the grib2hdf
 RUN mkdir -p /build/wgrib && cd /build/wgrib && \
-	curl -O ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/wgrib.tar.v${WGRIB_VERSION} && \
-	tar xf wgrib.tar.v${WGRIB_VERSION} && \
-	cd /build/wgrib && make && \
+    curl -O ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/wgrib.tar.v${WGRIB_VERSION} && \
+    tar xf wgrib.tar.v${WGRIB_VERSION} && \
+    cd /build/wgrib && make && \
     mkdir /wgrib && cp wgrib /wgrib/wgrib && \
     rm -rf /build
 
 ## adds wgrib2 support for the grib2hdf
 RUN mkdir -p /build && cd /build && \
-	curl -O ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib2/wgrib2.tgz.v${WGRIB2_VERSION} && \
-	tar xzf wgrib2.tgz.v${WGRIB2_VERSION} && \
+    curl -O ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib2/wgrib2.tgz.v${WGRIB2_VERSION} && \
+    tar xzf wgrib2.tgz.v${WGRIB2_VERSION} && \
     cd grib2 && export USE_AEC=0 && make && \
     mkdir /wgrib2 && cp wgrib2/wgrib2 /wgrib2/wgrib2 && \
     rm -rf /build
@@ -46,33 +46,33 @@ RUN mkdir -p /build && cd /build && \
 # https://groups.ssec.wisc.edu/groups/goes-r/algorithm-working-group/geocat-and-framework/geocat-user-documentation/running-geocat-on-modis-data
 RUN apt-get install -y csh
 RUN mkdir -p /build && cd /build && \
-	wget ftp://pirlftp.lpl.arizona.edu/pub/PPVL/PPVL-${PPVL_VERSION}.tar.gz && \
-	tar xzf PPVL-${PPVL_VERSION}.tar.gz && \
-	cd /build/PPVL-${PPVL_VERSION} && mkdir -p /ppvl/lib /ppvl/include && INSTALL_DIR=/ppvl make install && \
+    wget ftp://pirlftp.lpl.arizona.edu/pub/PPVL/PPVL-${PPVL_VERSION}.tar.gz && \
+    tar xzf PPVL-${PPVL_VERSION}.tar.gz && \
+    cd /build/PPVL-${PPVL_VERSION} && mkdir -p /ppvl/lib /ppvl/include && INSTALL_DIR=/ppvl make install && \
     rm -rf /build
 
 ## adds Profile_Utility
 RUN mkdir -p /build && cd /build && \
-	curl -O ftp://ftp.emc.ncep.noaa.gov/jcsda/CRTM/utility/Profile_Utility.tar.gz && \
-	tar xzf Profile_Utility.tar.gz && \
-	cd /build/Profile_Utility && make && make install && \
-	mkdir /profile_utility && cp -r lib /profile_utility/lib && cp -r include /profile_utility/include && \
+    curl -O ftp://ftp.emc.ncep.noaa.gov/jcsda/CRTM/utility/Profile_Utility.tar.gz && \
+    tar xzf Profile_Utility.tar.gz && \
+    cd /build/Profile_Utility && make && make install && \
+    mkdir /profile_utility && cp -r lib /profile_utility/lib && cp -r include /profile_utility/include && \
     rm -rf /build
 
 ## adds CRTM
 RUN mkdir -p /build && cd /build && \
-	curl -O ftp://ftp.ssec.wisc.edu/pub/geocat/crtm/REL-${CRTM_VERSION}.CRTM.tar.gz && \
-	tar xzf REL-${CRTM_VERSION}.CRTM.tar.gz && \
-	cd /build/REL-${CRTM_VERSION} && . configure/gfortran.setup && make && make test && make install && \
-	mkdir /crtm && cp -r lib /crtm/lib && cp -r include /crtm/include && \
-	mkdir /crtm/coeffs && \
-	cp fix/AerosolCoeff/Little_Endian/AerosolCoeff.bin /crtm/coeffs/AerosolCoeff.bin && \
-	cp fix/CloudCoeff/Little_Endian/CloudCoeff.bin /crtm/coeffs/CloudCoeff.bin && \
-	cp fix/EmisCoeff/Little_Endian/Wu-Smith.CM-PDF.HQS_HQS-RefInd.EmisCoeff.bin /crtm/coeffs/EmisCoeff.bin && \
-	cp fix/SpcCoeff/Little_Endian/seviri_m09.SpcCoeff.bin /crtm/coeffs/seviri_m09.SpcCoeff.bin && \
-	cp fix/TauCoeff/ODAS/Little_Endian/seviri_m09.TauCoeff.bin /crtm/coeffs/seviri_m09.TauCoeff.bin && \
-	cp fix/SpcCoeff/Little_Endian/sndr_g14.SpcCoeff.bin /crtm/coeffs/sndr_g14.SpcCoeff.bin && \
-	cp fix/TauCoeff/ODAS/Little_Endian/sndr_g14.TauCoeff.bin /crtm/coeffs/sndr_g14.TauCoeff.bin && \
+    curl -O ftp://ftp.ssec.wisc.edu/pub/geocat/crtm/REL-${CRTM_VERSION}.CRTM.tar.gz && \
+    tar xzf REL-${CRTM_VERSION}.CRTM.tar.gz && \
+    cd /build/REL-${CRTM_VERSION} && . configure/gfortran.setup && make && make test && make install && \
+    mkdir /crtm && cp -r lib /crtm/lib && cp -r include /crtm/include && \
+    mkdir /crtm/coeffs && \
+    cp fix/AerosolCoeff/Little_Endian/AerosolCoeff.bin /crtm/coeffs/AerosolCoeff.bin && \
+    cp fix/CloudCoeff/Little_Endian/CloudCoeff.bin /crtm/coeffs/CloudCoeff.bin && \
+    cp fix/EmisCoeff/Little_Endian/Wu-Smith.CM-PDF.HQS_HQS-RefInd.EmisCoeff.bin /crtm/coeffs/EmisCoeff.bin && \
+    cp fix/SpcCoeff/Little_Endian/seviri_m09.SpcCoeff.bin /crtm/coeffs/seviri_m09.SpcCoeff.bin && \
+    cp fix/TauCoeff/ODAS/Little_Endian/seviri_m09.TauCoeff.bin /crtm/coeffs/seviri_m09.TauCoeff.bin && \
+    cp fix/SpcCoeff/Little_Endian/sndr_g14.SpcCoeff.bin /crtm/coeffs/sndr_g14.SpcCoeff.bin && \
+    cp fix/TauCoeff/ODAS/Little_Endian/sndr_g14.TauCoeff.bin /crtm/coeffs/sndr_g14.TauCoeff.bin && \
     rm -rf /build
 
 # add libHimawari
