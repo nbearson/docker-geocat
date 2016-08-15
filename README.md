@@ -45,9 +45,10 @@ make gfortran_opt
 cd ..
 
 cd test/dev_lib_sat_regression_test
-wget ftp.ssec.wisc.edu:/pub/geocat/test_data/geocat_lib_sat_regression_test_data_20130719.tar.gz
-tar xf geocat_lib_sat_regression_test_data_20130719.tar.gz 
-rm geocat_lib_sat_regression_test_data_20130719.tar.gz 
+wget ftp.ssec.wisc.edu:/pub/geocat/test_data/geocat_lib_sat_regression_test_data_20160728.tar.gz
+tar xf geocat_lib_sat_regression_test_data_20160728.tar.gz 
+rm geocat_lib_sat_regression_test_data_20160728.tar.gz 
+
 make -f regression_test.mk
 
 
