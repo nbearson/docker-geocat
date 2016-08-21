@@ -85,6 +85,24 @@ RUN cd / && git clone https://gitlab.ssec.wisc.edu/rayg/himawari.git himawari &&
 RUN apt-get install -y python-setuptools python-numpy python-scipy python-matplotlib python-mpltoolkits.basemap
 RUN easy_install -f http://larch.ssec.wisc.edu/cgi-bin/repos.cgi uwglance
 
+## add pyhdf for glance to read hdf4 files
+RUN mkdir -p /build && cd /build && \
+    wget http://hdfeos.org/software/pyhdf/pyhdf-0.9.0.tar.gz && \
+    tar xzf pyhdf-0.9.0.tar.gz && \
+    cd pyhdf-0.9.0 && \
+    INCLUDE_DIRS="/opt/hdf4/include/" \
+    LIBRARY_DIRS="/opt/hdf4/lib/" \
+    python setup.py install && \
+    rm -r /build
+
+## add netcdf4-python for glance to read netcdf4 files
+RUN mkdir -p /build && cd /build && \
+    wget https://github.com/Unidata/netcdf4-python/archive/v1.2.4rel.tar.gz && \
+    tar xzf v1.2.4rel.tar.gz && \
+    cd netcdf4-python-1.2.4rel && \
+    PATH="/opt/netcdf4/bin:$PATH" \
+    python setup.py install && \
+    rm -r /build
 
 ## safe default that also makes SVN stop complaining when we run regression tests
 RUN mkdir -p /root/.subversion && \
