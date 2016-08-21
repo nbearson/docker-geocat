@@ -16,6 +16,8 @@ ENV WGRIB_VERSION 1.8.1.2c
 ENV WGRIB2_VERSION 2.0.5
 ENV PPVL_VERSION 1.2.6
 ENV CRTM_VERSION 2.0.6
+ENV PYHDF_VERSION 0.9.0
+ENV NETCDFPY_VERSION 1.2.4rel
 
 # unzip needed to unzip packages inside wgrib
 # cvs needed to grab grib2hdf
@@ -87,9 +89,9 @@ RUN easy_install -f http://larch.ssec.wisc.edu/cgi-bin/repos.cgi uwglance
 
 ## add pyhdf for glance to read hdf4 files
 RUN mkdir -p /build && cd /build && \
-    wget http://hdfeos.org/software/pyhdf/pyhdf-0.9.0.tar.gz && \
-    tar xzf pyhdf-0.9.0.tar.gz && \
-    cd pyhdf-0.9.0 && \
+    wget http://hdfeos.org/software/pyhdf/pyhdf-${PYHDF_VERSION}.tar.gz && \
+    tar xzf pyhdf-${PYHDF_VERSION}.tar.gz && \
+    cd pyhdf-${PYHDF_VERSION} && \
     INCLUDE_DIRS="/opt/hdf4/include/" \
     LIBRARY_DIRS="/opt/hdf4/lib/" \
     python setup.py install && \
@@ -97,16 +99,16 @@ RUN mkdir -p /build && cd /build && \
 
 ## add netcdf4-python for glance to read netcdf4 files
 RUN mkdir -p /build && cd /build && \
-    wget https://github.com/Unidata/netcdf4-python/archive/v1.2.4rel.tar.gz && \
-    tar xzf v1.2.4rel.tar.gz && \
-    cd netcdf4-python-1.2.4rel && \
+    wget https://github.com/Unidata/netcdf4-python/archive/v${NETCDFPY_VERSION}.tar.gz && \
+    tar xzf v${NETCDFPY_VERSION}.tar.gz && \
+    cd netcdf4-python-${NETCDFPY_VERSION} && \
     PATH="/opt/netcdf4/bin:$PATH" \
     python setup.py install && \
     rm -r /build
 
 ## safe default that also makes SVN stop complaining when we run regression tests
 RUN mkdir -p /root/.subversion && \
-    echo "[global]" >> /root/.subversion/servers && \
+    echo "[global]" >> /root/.subversion/ser0.9.0vers && \
     echo "store-plaintext-passwords = no" >> /root/.subversion/servers
 
 
