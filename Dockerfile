@@ -3,7 +3,7 @@
 
 # for a step-by-step on installing geocat, see:
 # getting libs: 
-# https://groups.ssec.wisc.edu/groups/goes-r/algorithm-working-group/geocat-and-framework/geocat-user-documentation${BUILD}ing-geocat-cots-libraries
+# https://groups.ssec.wisc.edu/groups/goes-r/algorithm-working-group/geocat-and-framework/geocat-user-documentationbuilding-geocat-cots-libraries
 # trunk install:
 # https://groups.ssec.wisc.edu/groups/goes-r/algorithm-working-group/geocat-and-framework/geocat-user-documentation/installing-geocat/?searchterm=geocat
 # dev_lib_sat install:
@@ -12,7 +12,10 @@
 # docker-science-stack handles all the lib dependencies for us
 FROM nbearson/docker-science-stack
 
-# we should inherit ${BUILD} and ${OPT} from docker-science-stack
+# apparently we don't inherit ${BUILD} and ${OPT} from docker-science-stack
+# how should we do this? .bashrc?
+ENV BUILD /build
+ENV OPT /opt
 
 ENV WGRIB_VERSION 1.8.1.2c
 ENV WGRIB2_VERSION 2.0.5
@@ -31,7 +34,7 @@ RUN mkdir -p ${BUILD}/wgrib && cd ${BUILD}/wgrib && \
     curl -O ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/wgrib.tar.v${WGRIB_VERSION} && \
     tar xf wgrib.tar.v${WGRIB_VERSION} && \
     cd ${BUILD}/wgrib && make && \
-    mkdir /wgrib && cp wgrib /wgrib/wgrib && \
+    mkdir ${OPT}/wgrib && cp wgrib ${OPT}/wgrib/wgrib && \
     rm -rf ${BUILD}
 
 ## adds wgrib2 support for the grib2hdf
@@ -94,8 +97,8 @@ RUN mkdir -p ${BUILD} && cd ${BUILD} && \
     wget http://hdfeos.org/software/pyhdf/pyhdf-${PYHDF_VERSION}.tar.gz && \
     tar xzf pyhdf-${PYHDF_VERSION}.tar.gz && \
     cd pyhdf-${PYHDF_VERSION} && \
-    INCLUDE_DIRS="${BUILD}/hdf4/include/" \
-    LIBRARY_DIRS="${BUILD}/hdf4/lib/" \
+    INCLUDE_DIRS="${OPT}/hdf4/include/" \
+    LIBRARY_DIRS="${OPT}/hdf4/lib/" \
     python setup.py install && \
     rm -r ${BUILD}
 
@@ -104,7 +107,7 @@ RUN mkdir -p ${BUILD} && cd ${BUILD} && \
     wget https://github.com/Unidata/netcdf4-python/archive/v${NETCDFPY_VERSION}.tar.gz && \
     tar xzf v${NETCDFPY_VERSION}.tar.gz && \
     cd netcdf4-python-${NETCDFPY_VERSION} && \
-    PATH="${BUILD}/netcdf4/bin:$PATH" \
+    PATH="${OPT}/netcdf4/bin:$PATH" \
     python setup.py install && \
     rm -r ${BUILD}
 
