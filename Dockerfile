@@ -49,6 +49,15 @@ RUN mkdir -p ${BUILD} && cd ${BUILD} && \
 # FIXME: can we get grib2hdf from cvs without having to log in? doesn't seem like it
 #RUN cd ${BUILD} && cvs co -d cvs.ssec.wisc.edu:/cvsroot https://cvs.ssec.wisc.edu/cgi-bin/cvsweb.cgi/grib2hdf
 
+## adds W3lib for mesoscale NWP data (RAP-13 and RUC-13)
+RUN mkdir -p ${BUILD} && cd ${BUILD} && \
+    curl -O ftp://ftp.ssec.wisc.edu/pub/geocat/w3/w3lib.tar && \
+    tar xf w3lib.tar && \
+    for f in w3fb??.f; do gfortran -c $f; done && \
+    ar rc libW3.a w3fb??.o && \
+    mkdir ${OPT}/w3lib && cp libW3.a ${OPT}/w3lib/libW3.a && \
+    rm -rf ${BUILD}
+
 ## adds PPVL for MODIS:
 # https://groups.ssec.wisc.edu/groups/goes-r/algorithm-working-group/geocat-and-framework/geocat-user-documentation/running-geocat-on-modis-data
 RUN apt-get install -y csh
@@ -124,6 +133,7 @@ RUN echo "export GEOCAT_INCLUDES=${HDF4}/include" >> ~/.bashrc && \
     echo "export CRTM=${OPT}/crtm" >> ~/.bashrc && \
     echo "export PROFILE_UTILITY=${OPT}/profile_utility" >> ~/.bashrc && \
     echo "export HIMAWARI_UTILS=${OPT}/himawari" >> ~/.bashrc && \
+    echo "export W3_LIBRARIES=${OPT}/w3lib"
     echo "" >> ~/.bashrc
 
 
