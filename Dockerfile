@@ -42,7 +42,7 @@ RUN mkdir -p ${BUILD} && cd ${BUILD} && \
     curl -O ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib2/wgrib2.tgz.v${WGRIB2_VERSION} && \
     tar xzf wgrib2.tgz.v${WGRIB2_VERSION} && \
     cd grib2 && export USE_AEC=0 && make && \
-    mkdir /wgrib2 && cp wgrib2/wgrib2 /wgrib2/wgrib2 && \
+    mkdir ${OPT}/wgrib2 && cp wgrib2/wgrib2 ${OPT}/wgrib2/wgrib2 && \
     rm -rf ${BUILD}
 
 ## TODO: adds grib2hdf
