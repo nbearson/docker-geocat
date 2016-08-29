@@ -27,7 +27,8 @@ ENV NETCDFPY_VERSION 1.2.4rel
 # unzip needed to unzip packages inside wgrib
 # cvs needed to grab grib2hdf
 # svn for checkout when running regression tests
-RUN apt-get update && apt-get install -y unzip cvs subversion
+# gdb & valgrind for the usual profiling / debugging things
+RUN apt-get update && apt-get install -y unzip cvs subversion gdb valgrind
 
 ## adds wgrib1 support for the grib2hdf
 RUN mkdir -p ${BUILD}/wgrib && cd ${BUILD}/wgrib && \
