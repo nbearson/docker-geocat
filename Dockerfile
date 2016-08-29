@@ -128,13 +128,12 @@ RUN mkdir -p /root/.subversion && \
 
 
 # set all the required env variables for the user
-RUN echo "export GEOCAT_INCLUDES=${HDF4}/include" >> ~/.bashrc && \
-    echo "export GEOCAT_LIBRARIES=${HDF4}/lib" >> ~/.bashrc && \
-    echo "export PPVL=${OPT}/ppvl" >> ~/.bashrc && \
-    echo "export CRTM=${OPT}/crtm" >> ~/.bashrc && \
-    echo "export PROFILE_UTILITY=${OPT}/profile_utility" >> ~/.bashrc && \
-    echo "export HIMAWARI_UTILS=${OPT}/himawari" >> ~/.bashrc && \
-    echo "export W3_LIBRARIES=${OPT}/w3lib"
-    echo "" >> ~/.bashrc
+ENV GEOCAT_INCLUDES ${HDF4}/include
+ENV GEOCAT_LIBRARIES ${HDF4}/lib
+ENV PPVL ${OPT}/ppvl
+ENV CRTM ${OPT}/crtm
+ENV PROFILE_UTILITY ${OPT}/profile_utility
+ENV HIMAWARI_UTILS ${OPT}/himawari
+ENV W3_LIBRARIES ${OPT}/w3lib
 
 
