@@ -113,4 +113,5 @@ ENV PROFILE_UTILITY ${OPT}/profile_utility
 ENV HIMAWARI_UTILS ${OPT}/himawari
 ENV W3_LIBRARIES ${OPT}/w3lib
 
-
+# add utility scripts to /usr/bin/ (already in path)
+ADD setup_geocat_ancil /usr/bin/

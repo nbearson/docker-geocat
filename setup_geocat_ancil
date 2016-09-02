@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+# This script will grab all the geocat ancillary data you need and build up
+# the usual data/ folder in the current directory.
+
+set -e
+
+mkdir -p data/crtm data/instrument_data data/sfc_data data/plod/lit_end data/navigation
+
+wget ftp://ftp.ssec.wisc.edu/pub/geocat/calibration/geocat_cal_v0_4.tar
+wget ftp://ftp.ssec.wisc.edu/pub/geocat/navigation/geocat_nav_v0_2.tar.gz
+wget ftp://ftp.ssec.wisc.edu/pub/geocat/pfaast/geocat_pfaast_luts_v0_2.tar
+wget ftp://ftp.ssec.wisc.edu/pub/geocat/surface_data/geocat_sfc_data_v0_2.tar.gz
+
+tar xf geocat_cal_v0_4.tar -C ./data/instrument_data 
+tar xf geocat_nav_v0_2.tar.gz -C ./data/navigation
+tar xf geocat_pfaast_luts_v0_2.tar -C ./data/plod/lit_end 
+tar xf geocat_sfc_data_v0_2.tar.gz -C ./data/sfc_data
+
+mv /crtm/coeffs data/crtm
+
+echo "Geocat ancillary directory ${PWD}/data set up successfully!"
