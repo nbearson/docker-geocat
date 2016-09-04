@@ -21,8 +21,6 @@ ENV WGRIB_VERSION 1.8.1.2c
 ENV WGRIB2_VERSION 2.0.5
 ENV PPVL_VERSION 1.2.6
 ENV CRTM_VERSION 2.0.6
-ENV PYHDF_VERSION 0.9.0
-ENV NETCDFPY_VERSION 1.2.4rel
 
 # unzip needed to unzip packages inside wgrib
 # cvs needed to grab grib2hdf
