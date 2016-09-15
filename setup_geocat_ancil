@@ -17,6 +17,6 @@ tar xf geocat_nav_v0_2.tar.gz -C ./data/navigation
 tar xf geocat_pfaast_luts_v0_2.tar -C ./data/plod/lit_end 
 tar xf geocat_sfc_data_v0_2.tar.gz -C ./data/sfc_data
 
-cp -r /crtm/coeffs data/crtm
+cp -r ${CRTM}/coeffs data/crtm
 
 echo "Geocat ancillary directory ${PWD}/data set up successfully!"
