@@ -84,11 +84,14 @@ RUN mkdir -p ${BUILD} && cd ${BUILD} && \
     cp fix/AerosolCoeff/Little_Endian/AerosolCoeff.bin ${OPT}/crtm/coeffs/AerosolCoeff.bin && \
     cp fix/CloudCoeff/Little_Endian/CloudCoeff.bin ${OPT}/crtm/coeffs/CloudCoeff.bin && \
     cp fix/EmisCoeff/Little_Endian/Wu-Smith.CM-PDF.HQS_HQS-RefInd.EmisCoeff.bin ${OPT}/crtm/coeffs/EmisCoeff.bin && \
-    cp fix/SpcCoeff/Little_Endian/seviri_m09.SpcCoeff.bin ${OPT}/crtm/coeffs/seviri_m09.SpcCoeff.bin && \
-    cp fix/TauCoeff/ODAS/Little_Endian/seviri_m09.TauCoeff.bin ${OPT}/crtm/coeffs/seviri_m09.TauCoeff.bin && \
-    cp fix/SpcCoeff/Little_Endian/sndr_g14.SpcCoeff.bin ${OPT}/crtm/coeffs/sndr_g14.SpcCoeff.bin && \
-    cp fix/TauCoeff/ODAS/Little_Endian/sndr_g14.TauCoeff.bin ${OPT}/crtm/coeffs/sndr_g14.TauCoeff.bin && \
+    cp fix/SpcCoeff/Little_Endian/*.bin ${OPT}/crtm/coeffs/. && \
+    cp fix/TauCoeff/ODAS/Little_Endian/*.bin ${OPT}/crtm/coeffs/. && \
     rm -rf ${BUILD}
+
+#    cp fix/SpcCoeff/Little_Endian/seviri_m09.SpcCoeff.bin ${OPT}/crtm/coeffs/seviri_m09.SpcCoeff.bin && \
+#    cp fix/TauCoeff/ODAS/Little_Endian/seviri_m09.TauCoeff.bin ${OPT}/crtm/coeffs/seviri_m09.TauCoeff.bin && \
+#    cp fix/SpcCoeff/Little_Endian/sndr_g14.SpcCoeff.bin ${OPT}/crtm/coeffs/sndr_g14.SpcCoeff.bin && \
+#    cp fix/TauCoeff/ODAS/Little_Endian/sndr_g14.TauCoeff.bin ${OPT}/crtm/coeffs/sndr_g14.TauCoeff.bin && \
 
 # add libHimawari
 # not large, not sure what's important, build it outside of ${BUILD} for now
