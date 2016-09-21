@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y unzip cvs subversion gdb valgrind
 
 ## adds wgrib1 support for the grib2hdf
 RUN mkdir -p ${BUILD}/wgrib && cd ${BUILD}/wgrib && \
-    curl -O ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/wgrib.tar.v${WGRIB_VERSION} && \
+    wget -q ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/wgrib.tar.v${WGRIB_VERSION} && \
     tar xf wgrib.tar.v${WGRIB_VERSION} && \
     cd ${BUILD}/wgrib && make && \
     mkdir ${OPT}/wgrib && cp wgrib ${OPT}/wgrib/wgrib && \
@@ -38,7 +38,7 @@ RUN mkdir -p ${BUILD}/wgrib && cd ${BUILD}/wgrib && \
 
 ## adds wgrib2 support for the grib2hdf
 RUN mkdir -p ${BUILD} && cd ${BUILD} && \
-    curl -O ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib2/wgrib2.tgz.v${WGRIB2_VERSION} && \
+    wget -q ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib2/wgrib2.tgz.v${WGRIB2_VERSION} && \
     tar xzf wgrib2.tgz.v${WGRIB2_VERSION} && \
     cd grib2 && export USE_AEC=0 && make && \
     mkdir ${OPT}/wgrib2 && cp wgrib2/wgrib2 ${OPT}/wgrib2/wgrib2 && \
@@ -50,7 +50,7 @@ RUN mkdir -p ${BUILD} && cd ${BUILD} && \
 
 ## adds W3lib for mesoscale NWP data (RAP-13 and RUC-13)
 RUN mkdir -p ${BUILD} && cd ${BUILD} && \
-    curl -O ftp://ftp.ssec.wisc.edu/pub/geocat/w3/w3lib.tar && \
+    wget -q ftp://ftp.ssec.wisc.edu/pub/geocat/w3/w3lib.tar && \
     tar xf w3lib.tar && \
     for f in w3fb??.f; do gfortran -c $f; done && \
     ar rc libW3.a w3fb??.o && \
@@ -68,7 +68,7 @@ RUN mkdir -p ${BUILD} && cd ${BUILD} && \
 
 ## adds Profile_Utility
 RUN mkdir -p ${BUILD} && cd ${BUILD} && \
-    curl -O ftp://ftp.emc.ncep.noaa.gov/jcsda/CRTM/utility/Profile_Utility.tar.gz && \
+    wget -q ftp://ftp.emc.ncep.noaa.gov/jcsda/CRTM/utility/Profile_Utility.tar.gz && \
     tar xzf Profile_Utility.tar.gz && \
     cd ${BUILD}/Profile_Utility && make && make install && \
     mkdir ${OPT}/profile_utility && cp -r lib ${OPT}/profile_utility/lib && cp -r include ${OPT}/profile_utility/include && \
@@ -76,7 +76,7 @@ RUN mkdir -p ${BUILD} && cd ${BUILD} && \
 
 ## adds CRTM
 RUN mkdir -p ${BUILD} && cd ${BUILD} && \
-    curl -O ftp://ftp.ssec.wisc.edu/pub/geocat/crtm/REL-${CRTM_VERSION}.CRTM.tar.gz && \
+    wget -q ftp://ftp.ssec.wisc.edu/pub/geocat/crtm/REL-${CRTM_VERSION}.CRTM.tar.gz && \
     tar xzf REL-${CRTM_VERSION}.CRTM.tar.gz && \
     cd ${BUILD}/REL-${CRTM_VERSION} && . configure/gfortran.setup && make && make test && make install && \
     mkdir ${OPT}/crtm && cp -r lib ${OPT}/crtm/lib && cp -r include ${OPT}/crtm/include && \
