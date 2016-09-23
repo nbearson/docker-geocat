@@ -115,3 +115,4 @@ ENV W3_LIBRARIES ${OPT}/w3lib
 
 # add utility scripts to /usr/bin/ (already in path)
 ADD setup_geocat_ancil /usr/bin/
+RUN chmod +x /usr/bin/setup_geocat_ancil
