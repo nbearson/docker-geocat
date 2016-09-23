@@ -7,16 +7,26 @@ set -e
 
 mkdir -p data/crtm data/instrument_data data/sfc_data data/plod/lit_end data/navigation
 
-wget ftp://ftp.ssec.wisc.edu/pub/geocat/calibration/geocat_cal_v0_4.tar
-wget ftp://ftp.ssec.wisc.edu/pub/geocat/navigation/geocat_nav_v0_2.tar.gz
-wget ftp://ftp.ssec.wisc.edu/pub/geocat/pfaast/geocat_pfaast_luts_v0_2.tar
-wget ftp://ftp.ssec.wisc.edu/pub/geocat/surface_data/geocat_sfc_data_v0_2.tar.gz
+CAL_FILE=geocat_cal_v0_4.tar
+NAV_FILE=geocat_nav_v0_2.tar.gz
+PFA_FILE=geocat_pfaast_luts_v0_2.tar
+SFC_FILE=geocat_sfc_data_v0_2.tar.gz
 
-tar xf geocat_cal_v0_4.tar -C ./data/instrument_data 
-tar xf geocat_nav_v0_2.tar.gz -C ./data/navigation
-tar xf geocat_pfaast_luts_v0_2.tar -C ./data/plod/lit_end 
-tar xf geocat_sfc_data_v0_2.tar.gz -C ./data/sfc_data
+wget -q ftp://ftp.ssec.wisc.edu/pub/geocat/calibration/${CAL_FILE}
+wget -q ftp://ftp.ssec.wisc.edu/pub/geocat/navigation/${NAV_FILE}
+wget -q ftp://ftp.ssec.wisc.edu/pub/geocat/pfaast/${PFA_FILE}
+wget -q ftp://ftp.ssec.wisc.edu/pub/geocat/surface_data/${SFC_FILE}
 
-cp -r ${CRTM}/coeffs data/crtm
+tar xf ${CAL_FILE} -C ./data/instrument_data
+tar xf ${NAV_FILE} -C ./data/navigation
+tar xf ${PFA_FILE} -C ./data/plod/lit_end
+tar xf ${SFC_FILE} -C ./data/sfc_data
+
+rm ${CAL_FILE}
+rm ${NAV_FILE}
+rm ${PFA_FILE}
+rm ${SFC_FILE}
+
+cp -r ${CRTM}/coeffs/* data/crtm/.
 
 echo "Geocat ancillary directory ${PWD}/data set up successfully!"
