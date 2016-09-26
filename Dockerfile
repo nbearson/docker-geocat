@@ -83,7 +83,21 @@ RUN mkdir -p ${BUILD} && cd ${BUILD} && \
     mkdir ${OPT}/crtm/coeffs && \
     cp fix/AerosolCoeff/Little_Endian/AerosolCoeff.bin ${OPT}/crtm/coeffs/AerosolCoeff.bin && \
     cp fix/CloudCoeff/Little_Endian/CloudCoeff.bin ${OPT}/crtm/coeffs/CloudCoeff.bin && \
-    cp fix/EmisCoeff/Little_Endian/Wu-Smith.CM-PDF.HQS_HQS-RefInd.EmisCoeff.bin ${OPT}/crtm/coeffs/EmisCoeff.bin && \
+    cp fix/EmisCoeff/MW_Water/Little_Endian/FASTEM4.MWwater.EmisCoeff.bin             ${OPT}/crtm/coeffs/FASTEM4.MWwater.EmisCoeff.bin && \
+    cp fix/EmisCoeff/MW_Water/Little_Endian/FASTEM5.MWwater.EmisCoeff.bin             ${OPT}/crtm/coeffs/FASTEM5.MWwater.EmisCoeff.bin && \
+    cp fix/EmisCoeff/IR_Land/SEcategory/Little_Endian/IGBP.IRland.EmisCoeff.bin       ${OPT}/crtm/coeffs/IGBP.IRland.EmisCoeff.bin && \
+    cp fix/EmisCoeff/VIS_Land/SEcategory/Little_Endian/IGBP.VISland.EmisCoeff.bin     ${OPT}/crtm/coeffs/IGBP.VISland.EmisCoeff.bin && \
+    cp fix/EmisCoeff/IR_Water/Little_Endian/Nalli.IRwater.EmisCoeff.bin               ${OPT}/crtm/coeffs/Nalli.IRwater.EmisCoeff.bin && \
+    cp fix/EmisCoeff/IR_Ice/SEcategory/Little_Endian/NPOESS.IRice.EmisCoeff.bin       ${OPT}/crtm/coeffs/NPOESS.IRice.EmisCoeff.bin && \
+    cp fix/EmisCoeff/IR_Land/SEcategory/Little_Endian/NPOESS.IRland.EmisCoeff.bin     ${OPT}/crtm/coeffs/NPOESS.IRland.EmisCoeff.bin && \
+    cp fix/EmisCoeff/IR_Snow/SEcategory/Little_Endian/NPOESS.IRsnow.EmisCoeff.bin     ${OPT}/crtm/coeffs/NPOESS.IRsnow.EmisCoeff.bin && \
+    cp fix/EmisCoeff/VIS_Ice/SEcategory/Little_Endian/NPOESS.VISice.EmisCoeff.bin     ${OPT}/crtm/coeffs/NPOESS.VISice.EmisCoeff.bin && \
+    cp fix/EmisCoeff/VIS_Land/SEcategory/Little_Endian/NPOESS.VISland.EmisCoeff.bin   ${OPT}/crtm/coeffs/NPOESS.VISland.EmisCoeff.bin && \
+    cp fix/EmisCoeff/VIS_Snow/SEcategory/Little_Endian/NPOESS.VISsnow.EmisCoeff.bin   ${OPT}/crtm/coeffs/NPOESS.VISsnow.EmisCoeff.bin && \
+    cp fix/EmisCoeff/VIS_Water/SEcategory/Little_Endian/NPOESS.VISwater.EmisCoeff.bin ${OPT}/crtm/coeffs/NPOESS.VISwater.EmisCoeff.bin && \
+    cp fix/EmisCoeff/IR_Land/SEcategory/Little_Endian/USGS.IRland.EmisCoeff.bin       ${OPT}/crtm/coeffs/USGS.IRland.EmisCoeff.bin && \
+    cp fix/EmisCoeff/VIS_Land/SEcategory/Little_Endian/USGS.VISland.EmisCoeff.bin     ${OPT}/crtm/coeffs/USGS.VISland.EmisCoeff.bin && \
+    cp fix/EmisCoeff/IR_Water/Little_Endian/WuSmith.IRwater.EmisCoeff.bin             ${OPT}/crtm/coeffs/WuSmith.IRwater.EmisCoeff.bin && \
     cp fix/SpcCoeff/Little_Endian/*.bin ${OPT}/crtm/coeffs/. && \
     cp fix/TauCoeff/ODAS/Little_Endian/*.bin ${OPT}/crtm/coeffs/. && \
     rm -rf ${BUILD}
