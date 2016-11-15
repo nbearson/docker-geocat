@@ -5,6 +5,7 @@
 
 set -e
 
+echo "Placing Geocat ancillary in ${PWD}/data..."
 mkdir -p data/crtm data/instrument_data data/sfc_data data/plod/lit_end data/navigation
 
 CAL_FILE=geocat_cal_v0_4.tar
@@ -12,11 +13,13 @@ NAV_FILE=geocat_nav_v0_2.tar.gz
 PFA_FILE=geocat_pfaast_luts_v0_2.tar
 SFC_FILE=geocat_sfc_data_v0_2.tar.gz
 
+echo "Downloading the ancillary bundles, this may take a while..."
 wget -q ftp://ftp.ssec.wisc.edu/pub/geocat/calibration/${CAL_FILE}
 wget -q ftp://ftp.ssec.wisc.edu/pub/geocat/navigation/${NAV_FILE}
 wget -q ftp://ftp.ssec.wisc.edu/pub/geocat/pfaast/${PFA_FILE}
 wget -q ftp://ftp.ssec.wisc.edu/pub/geocat/surface_data/${SFC_FILE}
 
+echo "Extracting the ancillary bundles in place..."
 tar xf ${CAL_FILE} -C ./data/instrument_data
 tar xf ${NAV_FILE} -C ./data/navigation
 tar xf ${PFA_FILE} -C ./data/plod/lit_end
