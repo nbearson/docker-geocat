@@ -10,7 +10,7 @@
 # https://groups.ssec.wisc.edu/groups/goes-r/algorithm-working-group/geocat-and-framework/geocat-user-documentation/installing-and-testing-the-experimental-lib_sat-version-of-geocat
 
 # docker-science-stack handles all the lib dependencies for us
-FROM nbearson/docker-science-stack
+FROM nbearson/docker-science-stack:experimental
 
 # apparently we don't inherit ${BUILD} and ${OPT} from docker-science-stack
 # how should we do this? .bashrc?
