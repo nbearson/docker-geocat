@@ -20,7 +20,7 @@ ENV OPT /opt
 ENV WGRIB_VERSION 1.8.1.2c
 ENV WGRIB2_VERSION 2.0.5
 ENV PPVL_VERSION 1.2.6
-ENV CRTM_VERSION 2.1.3
+ENV CRTM_VERSION 2.2.3
 
 # unzip needed to unzip packages inside wgrib
 # cvs needed to grab grib2hdf
@@ -76,8 +76,8 @@ RUN mkdir -p ${BUILD} && cd ${BUILD} && \
 
 ## adds CRTM
 RUN mkdir -p ${BUILD} && cd ${BUILD} && \
-    wget -q ftp://ftp.emc.ncep.noaa.gov/jcsda/CRTM/REL-${CRTM_VERSION}/REL-${CRTM_VERSION}.CRTM.tar.gz && \
-    tar xzf REL-${CRTM_VERSION}.CRTM.tar.gz && \
+    wget -q ftp://ftp.emc.ncep.noaa.gov/jcsda/CRTM/REL-${CRTM_VERSION}/crtm_v${CRTM_VERSION}.tar.gz && \
+    tar xzf crtm_v${CRTM_VERSION}.tar.gz && \
     cd ${BUILD}/REL-${CRTM_VERSION} && . configure/gfortran.setup && make && make test && make install && \
     mkdir ${OPT}/crtm && cp -r lib ${OPT}/crtm/lib && cp -r include ${OPT}/crtm/include && \
     mkdir ${OPT}/crtm/coeffs && \
