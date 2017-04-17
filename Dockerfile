@@ -78,8 +78,8 @@ RUN mkdir -p ${BUILD} && cd ${BUILD} && \
 RUN mkdir -p ${BUILD} && cd ${BUILD} && \
     wget -q ftp://ftp.emc.ncep.noaa.gov/jcsda/CRTM/REL-${CRTM_VERSION}/crtm_v${CRTM_VERSION}.tar.gz && \
     tar xzf crtm_v${CRTM_VERSION}.tar.gz && \
-    cd ${BUILD}/REL-${CRTM_VERSION} && . configure/gfortran.setup && make && make test && make install && \
-    mkdir ${OPT}/crtm && cp -r lib ${OPT}/crtm/lib && cp -r include ${OPT}/crtm/include && \
+    cd ${BUILD}/REL-${CRTM_VERSION} && . config-setup/gfortran.setup && ./configure --prefix=${OPT}/crtm && make && make test && make install && \
+    mkdir -p ${OPT}/crtm && cp -r lib ${OPT}/crtm/lib && cp -r include ${OPT}/crtm/include && \
     mkdir ${OPT}/crtm/coeffs && \
     cp fix/AerosolCoeff/Little_Endian/AerosolCoeff.bin ${OPT}/crtm/coeffs/AerosolCoeff.bin && \
     cp fix/CloudCoeff/Little_Endian/CloudCoeff.bin ${OPT}/crtm/coeffs/CloudCoeff.bin && \
