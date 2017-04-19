@@ -109,8 +109,10 @@ RUN mkdir -p ${BUILD} && cd ${BUILD} && \
 
 # add libHimawari
 # not large, not sure what's important, build it outside of ${BUILD} for now
+RUN apt-get install -y libboost-dev
 RUN cd ${OPT} && git clone https://gitlab.ssec.wisc.edu/rayg/himawari.git himawari && \
-    cd himawari/src && (unset CXX CC LD F9X; make)
+    (cd himawari/src; unset CXX CC LD F9X; make) && \
+		(cd himawari/; python setup.py install)
 
 ## safe default that also makes SVN stop complaining when we run regression tests
 RUN mkdir -p /root/.subversion && \
