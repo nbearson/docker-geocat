@@ -123,7 +123,7 @@ RUN mkdir -p /root/.subversion && \
 ENV GEOCAT_INCLUDES ${HDF4}/include
 ENV GEOCAT_LIBRARIES ${HDF4}/lib
 ENV PPVL ${OPT}/ppvl
-ENV CRTM ${OPT}/crtm
+ENV CRTM ${OPT}/crtm_v${CRTM_VERSION}
 ENV PROFILE_UTILITY ${OPT}/profile_utility
 ENV HIMAWARI_UTILS ${OPT}/himawari
 ENV W3_LIBRARIES ${OPT}/w3lib
