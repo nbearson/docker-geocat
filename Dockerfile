@@ -80,8 +80,8 @@ RUN mkdir -p ${BUILD} && cd ${BUILD} && \
     tar xzf crtm_v${CRTM_VERSION}.tar.gz && \
     cd ${BUILD}/REL-${CRTM_VERSION} && . config-setup/gfortran.setup && ./configure --prefix=${OPT} && make && make install && \
     mkdir ${OPT}/crtm_v${CRTM_VERSION}/coeffs && \
-    cp fix/AerosolCoeff/Little_Endian/AerosolCoeff.bin ${OPT}/crtm/coeffs/AerosolCoeff.bin && \
-    cp fix/CloudCoeff/Little_Endian/CloudCoeff.bin ${OPT}/crtm/coeffs/CloudCoeff.bin && \
+    cp fix/AerosolCoeff/Little_Endian/AerosolCoeff.bin                                ${OPT}/crtm_v${CRTM_VERSION}/coeffs/AerosolCoeff.bin && \
+    cp fix/CloudCoeff/Little_Endian/CloudCoeff.bin                                    ${OPT}/crtm_v${CRTM_VERSION}/coeffs/CloudCoeff.bin && \
     cp fix/EmisCoeff/MW_Water/Little_Endian/FASTEM4.MWwater.EmisCoeff.bin             ${OPT}/crtm_v${CRTM_VERSION}/coeffs/FASTEM4.MWwater.EmisCoeff.bin && \
     cp fix/EmisCoeff/MW_Water/Little_Endian/FASTEM5.MWwater.EmisCoeff.bin             ${OPT}/crtm_v${CRTM_VERSION}/coeffs/FASTEM5.MWwater.EmisCoeff.bin && \
     cp fix/EmisCoeff/IR_Land/SEcategory/Little_Endian/IGBP.IRland.EmisCoeff.bin       ${OPT}/crtm_v${CRTM_VERSION}/coeffs/IGBP.IRland.EmisCoeff.bin && \
